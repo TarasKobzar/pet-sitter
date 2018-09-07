@@ -30,7 +30,11 @@ public class SimpleOperationsService implements OperationsService {
 
         //create a response
         Response response = new Response();
-        //TODO 2. populate & save the response object
+        response.setUser(sitter);
+        response.setResponseStatus(ResponseStatus.PROPOSED);
+        request.addResponse(response);
+        response.setDetails("Max is a very active dog. Take him out for a run twice a day.");
+        responseRepo.save(response);
         return response;
     }
 
