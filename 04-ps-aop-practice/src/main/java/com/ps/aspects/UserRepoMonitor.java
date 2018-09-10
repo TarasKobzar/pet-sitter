@@ -28,8 +28,7 @@ public class UserRepoMonitor {
         }
     }
 
-    /*TODO 22. Declare this method as a AfterReturning advice and create a pointcut expression that matches any method
-     with the name starting with "update" that is defined in a class with the name containing "Service" */
+    @AfterReturning(value="execution (* com.ps.services.*Service+.update*(..))", returning = "result")
     public void afterServiceUpdate(JoinPoint joinPoint, int result) throws Throwable {
         String className = joinPoint.getSignature().getDeclaringTypeName();
         String methodName = joinPoint.getSignature().getName();
