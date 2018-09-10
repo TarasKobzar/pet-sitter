@@ -19,8 +19,7 @@ public class UserRepoMonitor {
 
     private static final Logger logger = Logger.getLogger(UserRepoMonitor.class);
 
-    /*TODO 26. Declare this method as a Before advice and use as pointcut expression the expression
-     associated with the "repoUpdate" from the "PointcutContainer" class */
+    @Before("com.ps.aspects.PointcutContainer.serviceUpdate(service, id, pass)")
     public void beforeServiceUpdate(UserService service, Long id, String pass) throws Throwable {
         logger.info(" ---> Target object " + service.getClass());
 
