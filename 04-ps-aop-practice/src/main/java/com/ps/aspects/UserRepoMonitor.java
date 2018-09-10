@@ -61,7 +61,7 @@ public class UserRepoMonitor {
         logger.info(" ---> Intercepting call of: " + methodName);
         long t1 = System.currentTimeMillis();
         try {
-            return null; //TODO 25. Call the target method
+            return joinPoint.proceed();
         } finally {
             long t2 = System.currentTimeMillis();
             logger.info(" ---> Execution of " + methodName + " took: " + (t2 - t1) / 1000 + " ms.");
@@ -75,5 +75,12 @@ public class UserRepoMonitor {
         ++findByIdCount;
         String methodName = joinPoint.getSignature().getName();
         logger.info(" ---> Method " + methodName + " was called " + findByIdCount + " times.");
+    }
+
+    @Before("com.ps.aspects.PointcutContainer.proxyBubu()")
+    public void bubuHappens(JoinPoint joinPoint) throws Throwable {
+        String methodName = joinPoint.getSignature().getName();
+        String className = joinPoint.getSignature().getDeclaringTypeName();
+        logger.info(" ---> BUBU when calling: " + className + "." + methodName);
     }
 }
