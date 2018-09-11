@@ -17,6 +17,7 @@ import java.util.*;
 @Repository("userNamedTemplateRepo")
 public class JdbcNamedTemplateUserRepo implements UserRepo {
 
+
     private RowMapper<User> rowMapper = new UserRowMapper();
 
     protected NamedParameterJdbcTemplate jdbcNamedTemplate;
