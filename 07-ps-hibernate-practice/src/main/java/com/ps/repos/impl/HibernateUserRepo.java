@@ -6,6 +6,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +16,8 @@ import java.util.Set;
 /**
  * Created by iuliana.cosmina on 6/4/16.
  */
-@Repository
+@Repository("userTemplateRepo")
+@Transactional(propagation = Propagation.MANDATORY)
 @SuppressWarnings("unchecked")
 public class HibernateUserRepo implements UserRepo {
 
@@ -52,7 +55,8 @@ public class HibernateUserRepo implements UserRepo {
     @Override
     public List<User> findAllByUserName(String username, boolean exactMatch) {
         if (exactMatch) {
-            return new ArrayList<>();  // TODO 36. Add Hibernate query to extract wll users with username = :username
+            return session().createQuery("from User u where username= ?")
+                    .setParameter(0, username).list();
         } else {
             return session().createQuery("from User u where username like ?")
                     .setParameter(0, "%" + username + "%").list();
