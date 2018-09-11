@@ -71,7 +71,7 @@ public class HibernateUserRepo implements UserRepo {
 
     @Override
     public long countUsers() {
-        return 0L; // TODO 37. Add query to count all users
+        return (Long) session().createQuery("select count(u) from User u").uniqueResult();
     }
 
     @Override
