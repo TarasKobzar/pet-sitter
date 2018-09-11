@@ -4,6 +4,8 @@ import com.ps.ents.User;
 import com.ps.exceptions.MailSendingException;
 import com.ps.repos.UserRepo;
 import com.ps.services.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -13,8 +15,9 @@ import org.springframework.transaction.annotation.Transactional;
  * Created by iuliana.cosmina on 7/15/16.
  */
 @Service
-//TODO 33. Make all methods required to be executed in a read only transaction.
+@Transactional(readOnly = true, propagation = Propagation.REQUIRED)
 public class UserServiceImpl implements UserService {
+    private Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
     private UserRepo userRepo;
 
@@ -26,7 +29,10 @@ public class UserServiceImpl implements UserService {
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public User findById(Long id) {
-        return userRepo.findById(id);
+        logger.debug(">>> Preparing to execute SERVICE.findById");
+        User user = userRepo.findById(id);
+        logger.debug(">>> Done executing REPO.findById");
+        return user;
     }
 
     @Transactional(propagation = Propagation.SUPPORTS)
