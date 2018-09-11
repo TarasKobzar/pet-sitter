@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional(readOnly = true, propagation = Propagation.REQUIRED)
 public class UserServiceImpl implements UserService {
+
     private Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
     private UserRepo userRepo;
