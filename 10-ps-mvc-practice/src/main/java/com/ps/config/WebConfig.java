@@ -45,10 +45,12 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     }
 
     @Bean
-    public InternalResourceViewResolver getViewResolver(){
-        // TODO 46. Complete the definition for a bean of type InternalResourceViewResolver that will map the requests to views
-        // under '/WEB-INF/' with extension '.jsp'
-        return null; // return resolver;
+    InternalResourceViewResolver getViewResolver(){
+        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+        resolver.setPrefix("/WEB-INF/");
+        resolver.setSuffix(".jsp" );
+        resolver.setRequestContextAttribute("requestContext");
+        return resolver;
     }
 
     @Bean
