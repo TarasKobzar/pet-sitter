@@ -74,6 +74,7 @@ public class HibernateUserRepo implements UserRepo {
         return (Long) session().createQuery("select count(u) from User u").uniqueResult();
     }
 
+
     @Override
     public void updatePassword(Long userId, String newPass) {
         User user = (User) session().createQuery("from User u where u.id= :id").
