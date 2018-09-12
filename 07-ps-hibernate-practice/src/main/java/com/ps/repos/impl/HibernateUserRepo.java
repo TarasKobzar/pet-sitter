@@ -82,6 +82,7 @@ public class HibernateUserRepo implements UserRepo {
         session().update(user);
     }
 
+
     @Override
     public void updateUsername(Long userId, String username) {
         User user = (User) session().createQuery("from User u where u.id= :id").
